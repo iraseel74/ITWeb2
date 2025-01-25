@@ -1794,7 +1794,7 @@ input, select, textarea {
 		font-weight: 700;
 		text-transform: uppercase;
 		text-decoration: none;
-		background: #b1ddab;
+		background: #b1ddab;    /* ******************************************************************** */
 		color: #fff;
 		border: 0;
 		line-height: 1em;
@@ -1858,6 +1858,13 @@ input, select, textarea {
 		.button.large {
 			font-size: 1.65em;
 		}
+		
+.role-buttons  {    /* ******************************************************************** */
+      display: flex;
+	   padding: 20px 40px;
+      gap: 10px;
+      justify-content: center;
+    }
 
 /* List */
 
@@ -2414,7 +2421,7 @@ input, select, textarea {
 			}
 
 			#nav li.current a {
-				background: #00138e;
+				background: #3195ca;
 				color: #fff;
 			}
 
@@ -2542,7 +2549,7 @@ input, select, textarea {
 
 	#main {
 		background: #fff;
-		border-top: solid 5px #00138e;
+		border-top: solid 5px rgb(29, 154, 242);
 		border-bottom: solid 5px #c1cac5;
 		border-top-width: 35px;
 		border-bottom-width: 10px;
@@ -2813,7 +2820,7 @@ input, select, textarea {
 					}
 
 					#titleBar .toggle:active:before {
-						background-color: #00138e;
+						background-color: #4086d6;
 					}
 
 			#navPanel {
@@ -3087,48 +3094,156 @@ input, select, textarea {
 	/*table of doctor*/
 	table {
 		width: 100%;
-		border-collapse: separate;
-		border-spacing: 0;
+		border-collapse: collapse;
 		margin: 20px 0;
-		border: 1px solid #dddddd;
-		 border-radius: 8px;
-		overflow:hidden;
-		
 	}
-	 th, td {
-		border: 1px solid #dddddd;
-		 border-radius: 5px;
+	table, th, td {
+		border: 1px solid #bdc3c7;
 	}
 	th, td {
 		padding: 10px;
 		text-align: left;
 	}
 	th {
-		background-color:#00138e ;
-		color:white;
-	}
-	tr:hover{
-		background-color: #f1f1f1;
-	}
-	th:first-child {
-		border-top-left-radius: 8px; /* الزاوية اليسرى العليا */
-	}
-	
-	th:last-child {
-		border-top-right-radius: 8px; /* الزاوية اليمنى العليا */
-	}
-	
-	tbody tr:last-child td:first-child {
-		border-bottom-left-radius: 8px; /* الزاوية اليسرى السفلى */
-	}
-	
-	tbody tr:last-child td:last-child {
-		border-bottom-right-radius: 8px; /* الزاوية اليمنى السفلى */
+		background-color: #ecf0f1;
 	}
 	.button {
-		background-color: #1328ad;
+		background-color: #3498db;
 		color: white;
 		border: none;
 		padding: 5px 10px;
 		cursor: pointer;
 	}
+	
+	
+	
+	
+	
+	
+	/*  styles LogIn-form */
+#login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+	background-color: white;
+}
+
+#login-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+#login-form legend {
+    font-size: 1.5em;
+    color: #333;
+    padding: 0 10px;
+}
+
+#login-form label {
+    font-size: 1.1em;
+    margin: 8px 0;
+    display: block;
+}
+
+#login-form input[type="email"],
+#login-form input[type="password"],
+#login-form select {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+#login-form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.2em;
+    cursor: pointer;
+}
+
+#login-form input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+	
+	
+	
+	/*   styles  SignUp-form */
+	
+  #form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120vh;
+            flex-direction: column;
+			background-color:white;
+			
+			
+        }
+
+        #role-selection {
+            margin-bottom: 20px;
+        }
+
+        #patient-form, #doctor-form {
+            display: none;
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9; 
+        }
+		
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+		
+		
+label {
+    font-size: 1em;
+    margin: 10px 0;
+    display: inline-block;
+}
+
+
+input[type="radio"] {
+    margin-right: 10px;
+    transform: scale(1.3); 
+}
+
+
+
