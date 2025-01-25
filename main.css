@@ -2414,7 +2414,7 @@ input, select, textarea {
 			}
 
 			#nav li.current a {
-				background: #3195ca;
+				background: #00138e;
 				color: #fff;
 			}
 
@@ -2542,7 +2542,7 @@ input, select, textarea {
 
 	#main {
 		background: #fff;
-		border-top: solid 5px rgb(29, 154, 242);
+		border-top: solid 5px #00138e;
 		border-bottom: solid 5px #c1cac5;
 		border-top-width: 35px;
 		border-bottom-width: 10px;
@@ -2813,7 +2813,7 @@ input, select, textarea {
 					}
 
 					#titleBar .toggle:active:before {
-						background-color: #4086d6;
+						background-color: #00138e;
 					}
 
 			#navPanel {
@@ -3087,21 +3087,46 @@ input, select, textarea {
 	/*table of doctor*/
 	table {
 		width: 100%;
-		border-collapse: collapse;
+		border-collapse: separate;
+		border-spacing: 0;
 		margin: 20px 0;
+		border: 1px solid #dddddd;
+		 border-radius: 8px;
+		overflow:hidden;
+		
 	}
-	table, th, td {
-		border: 1px solid #bdc3c7;
+	 th, td {
+		border: 1px solid #dddddd;
+		 border-radius: 5px;
 	}
 	th, td {
 		padding: 10px;
 		text-align: left;
 	}
 	th {
-		background-color: #ecf0f1;
+		background-color:#00138e ;
+		color:white;
+	}
+	tr:hover{
+		background-color: #f1f1f1;
+	}
+	th:first-child {
+		border-top-left-radius: 8px; /* الزاوية اليسرى العليا */
+	}
+	
+	th:last-child {
+		border-top-right-radius: 8px; /* الزاوية اليمنى العليا */
+	}
+	
+	tbody tr:last-child td:first-child {
+		border-bottom-left-radius: 8px; /* الزاوية اليسرى السفلى */
+	}
+	
+	tbody tr:last-child td:last-child {
+		border-bottom-right-radius: 8px; /* الزاوية اليمنى السفلى */
 	}
 	.button {
-		background-color: #3498db;
+		background-color: #1328ad;
 		color: white;
 		border: none;
 		padding: 5px 10px;
