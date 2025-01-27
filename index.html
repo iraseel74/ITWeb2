@@ -11,6 +11,165 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="main.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+		<style>
+
+.category-label a{
+    color:  white;
+    text-decoration: none;
+  }
+  
+  
+  .category-container {
+        position: relative;
+        top: 1vw;
+        margin-bottom: 2vw;
+        color: #ffffff;
+  }
+  @media(max-width:799px){
+    .category-container {
+      position: relative;
+      top: 5vw;
+      margin-bottom: 2vw;
+      color: #ffffff;
+}
+  }
+  
+  .category-bottom-left {
+        font-size: 4.5vw;
+        position: absolute;
+        bottom: 0.8vw;
+        left: 5%;
+  }
+  
+  
+  
+  
+  .card {
+        position: relative;
+        width: 22%; 
+        height: 27vw;
+        margin: 1%; 
+        background-color: white;
+        border-radius: 0.5vw;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+  }
+      
+  .card img {
+          width: 100%;
+          height: 100%;
+  
+   }
+    
+  .card .product-info {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(197, 169, 131, 0.7);
+          color: white;
+          display: none;
+          justify-content: center;
+          align-items: center;
+          padding: 2vw;
+          text-align: center;
+  }
+    
+  .card:hover .product-info {
+          display: flex;
+  }
+    
+  .card .product-info p {
+          font-size: 1.5vw;
+  }
+    
+        .card .top-left {
+          position: absolute;
+          top: 0.5vw;
+          left: 0.5vw;
+          color: black;
+          padding: 0.3vw 0.7vw;
+          font-size: 1.40vw;
+        }
+    
+        .card .bottom-left {
+          position: absolute;
+          bottom: 0.5vw;
+          left: 0.5vw;
+          color: black;
+          padding: 0.3vw 0.7vw;
+          font-size: 1.40vw;
+        }
+    
+        .card .bottom-right {
+          position: absolute;
+          bottom: 0.5vw;
+          right: 0.5vw;
+          background-color: #6c584c;
+          color: white;
+          border: none;
+          padding: 0.7vw 1vw;
+          border-radius: 0.4vw;
+          font-size: 1.4vw;
+          cursor: default ;
+        }
+    
+        .card .bottom-right:hover {
+          background-color: #9B7E65;
+        }
+  
+      .product-container{
+            display:flex;
+            flex-wrap: wrap;     
+            justify-content: space-between;
+            align-content: space-between;
+        }
+  .sort-by {
+      padding: 1vw;
+      border: 1px solid #ccc;
+      border-radius: 0.5vw;
+      margin: 2vw 1vw 2vw;
+      font-size: 1vw;
+      cursor: pointer;
+  }
+  
+  .card .quantity-control {
+    position: absolute;
+    bottom: 0.5vw;
+    right: 0.5vw;
+    display: flex;
+    align-items: center;
+    cursor: default ;
+  }
+  
+  .card .quantity-control button {
+    background-color: #6c584c;
+    color: white;
+    border: none;
+    border-radius: 0.3vw;
+    padding: 0.5vw;
+    font-size: 1.5vw;
+  }
+  
+  .card .quantity-control button:hover {
+    background-color: #9B7E65;
+  }
+  
+  .card .quantity-control span {
+    margin: 0 0.5vw;
+    font-size: 1.4vw;
+    color: black;
+  }
+  
+  
+  .card .hidden {
+    display: none !important;
+  }
+
+  
+
+		</style>
 	</head>
 	<body class="homepage is-preload">
 		<div id="page-wrapper">
@@ -137,6 +296,19 @@
 
 							</div>
 						<div class="col-12">
+
+<div class="product-container">
+
+
+	<!--2-->
+	 <div class="card">
+	   <img src="images/majed.jpg" alt="Sweater"  id="img-10">
+	   <div class="top-left" id="name-10">Sweater</div>
+	   <div class="product-info">
+		 <p>oversized jacquard-knit wool-blend sweater</p>
+	   </div>	  
+	 </div> 
+</div>
 
     <!-- Blog -->
     <section class="box blog">
