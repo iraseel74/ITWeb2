@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	TXT by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 	<head>
 		<title>Sign-up page</title>
@@ -37,215 +32,128 @@
 					</ul>
 				</nav>
 				
-				
-<!-- <h2>Create Your Account :</h2>				
-				
-<fieldset id="signup-form-container">
-   
-    <form action="patient_homepage.html" method="POST" id="signup-form">
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required>
+				<div id="role-selection-container">
+					<label for="role-selection"><h2>Select your role :</h2></label>
+					<input type="radio" id="patient" name="role" value="patient" onclick="showForm()">
+					<label for="patient">Patient</label>
+					<input type="radio" id="doctor" name="role" value="doctor" onclick="showForm()">
+					<label for="doctor">Doctor</label>
+				</div>
+				<div id="form-container">
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required>
+					<!-- Patient Form -->
+					<form id="patient-form" onsubmit="navigateToPatientPage(event)">
+						<legend>Patient Sign-Up</legend>
+						<label for="first_name">First Name:</label>
+						<input type="text" id="first_name" name="first_name" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+						<label for="last_name">Last Name:</label>
+						<input type="text" id="last_name" name="last_name" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+						<label for="id">ID:</label>
+						<input type="text" id="id" name="id" required>
 
-        <label for="role">Role:</label>
-        <select id="role" name="role" required>
-            <option value="patient">Patient</option>
-            <option value="doctor">Doctor</option>
-        </select>
+						<label for="gender">Gender:</label>
+						<select id="gender" name="gender" required>
+							<option value="male">Male</option>
+							<option value="female">Female</option>
+						</select>
 
-        <input type="submit" value="Sign Up">
-    </form>
-</fieldset> -->
+						<label for="dob">Date of Birth:</label>
+						<input type="date" id="dob" name="dob" required>
 
+						<label for="email">Email:</label>
+						<input type="email" id="email" name="email" required>
 
- <div id="role-selection-container">
-    <label for="role-selection"><h2>Select your role :</h2></label>
-    <input type="radio" id="patient" name="role" value="patient" onclick="showForm()">
-    <label for="patient">Patient</label>
-    <input type="radio" id="doctor" name="role" value="doctor" onclick="showForm()">
-    <label for="doctor">Doctor</label>
-</div>
-<div id="form-container">
+						<label for="password">Password:</label>
+						<input type="password" id="password" name="password" required>
 
-  
-    <!-- Patient Form -->
-    <form id="patient-form" action="PatientPage.html" method="POST">
-        <legend>Patient Sign-Up</legend>
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name" name="first_name" required>
+						<input type="submit" value="Sign Up">
+					</form>
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name" name="last_name" required>
+					<!-- Doctor Form -->
+					<form id="doctor-form" onsubmit="navigateToDoctorPage(event)">
+						<legend>Doctor Sign-Up</legend>
+						<label for="first_name">First Name:</label>
+						<input type="text" id="first_name_doc" name="first_name" required>
 
-        <label for="id">ID:</label>
-        <input type="text" id="id" name="id" required>
+						<label for="last_name">Last Name:</label>
+						<input type="text" id="last_name_doc" name="last_name" required>
 
-        <label for="gender">Gender:</label>
-        <select id="gender" name="gender" required>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-        </select>
+						<label for="id_doc">ID:</label>
+						<input type="text" id="id_doc" name="id" required>
 
-        <label for="dob">Date of Birth:</label>
-        <input type="date" id="dob" name="dob" required>
+						<label for="photo">Photo:</label>
+						<input type="file" id="photo" name="photo" accept="image/*" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+						<label for="speciality">Speciality:</label>
+						<select id="speciality" name="speciality" required>
+							<option value="general">General</option>
+							<option value="dentist">Dentist</option>
+							<option value="dermatologist">Dermatologist</option>
+						</select>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+						<label for="email">Email:</label>
+						<input type="email" id="email_doc" name="email" required>
 
-        
-          <input type="submit" value="Sign Up">
-        
-		 		
-    </form>
+						<label for="password">Password:</label>
+						<input type="password" id="password_doc" name="password" required>
 
-    <!-- Doctor Form -->
-    <form id="doctor-form" action="DoctorPage.html" method="POST">
-        <legend>Doctor Sign-Up</legend>
-        <label for="first_name">First Name:</label>
-        <input type="text" id="first_name_doc" name="first_name" required>
+						<input type="submit" value="Sign Up">
+					</form>
 
-        <label for="last_name">Last Name:</label>
-        <input type="text" id="last_name_doc" name="last_name" required>
+				</div>
 
-        <label for="id_doc">ID:</label>
-        <input type="text" id="id_doc" name="id" required>
+			<script>
+				function showForm() {
+					var role = document.querySelector('input[name="role"]:checked');
+					if (role) {
+						if (role.value == "patient") {
+							document.getElementById("patient-form").style.display = "block";
+							document.getElementById("doctor-form").style.display = "none";
+						} else if (role.value == "doctor") {
+							document.getElementById("doctor-form").style.display = "block";
+							document.getElementById("patient-form").style.display = "none";
+						}
+					} else {
+						document.getElementById("patient-form").style.display = "none";
+						document.getElementById("doctor-form").style.display = "none";
+					}
+				}
 
-        <label for="photo">Photo:</label>
-        <input type="file" id="photo" name="photo" accept="image/*" required>
+				function navigateToPatientPage(event) {
+					event.preventDefault();
+					// Gather form data if needed, then redirect to the PatientPage.html
+					window.location.href = "PatientPage.html";
+				}
 
-        <label for="speciality">Speciality:</label>
-        <select id="speciality" name="speciality" required>
-            <option value="general">General</option>
-            <option value="dentist">Dentist</option>
-            <option value="dermatologist">Dermatologist</option>
-        </select>
+				function navigateToDoctorPage(event) {
+					event.preventDefault();
+					// Gather form data if needed, then redirect to the DoctorPage.html
+					window.location.href = "DoctorPage.html";
+				}
+			</script>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email_doc" name="email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password_doc" name="password" required>
-
-       
-         <input type="submit" value="Sign Up"> 
-	   
-    </form>
-	
-
-</div>
-
-<script>
-   function showForm() {
-    var role = document.querySelector('input[name="role"]:checked');
-    if (role) {
-        if (role.value == "patient") {
-            document.getElementById("patient-form").style.display = "block";
-            document.getElementById("doctor-form").style.display = "none";
-        } else if (role.value == "doctor") {
-            document.getElementById("doctor-form").style.display = "block";
-            document.getElementById("patient-form").style.display = "none";
-        }
-    } else {
-        document.getElementById("patient-form").style.display = "none";
-        document.getElementById("doctor-form").style.display = "none";
-    }
-}
-
-</script>
-
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
- 				
-				<!-- Footer -->
-				
-				<footer id="footer">
-					<div class="container">
-						<div class="row gtr-200">
-							<div class="col-12">
-
-								<!-- About -->
-									<section>
-                                          <h2 class="major"><span>About Glamour Beauty</span></h2>
-                                          <p>
-                                            Welcome to <strong>Glamour Beauty</strong>, your ultimate destination for health and beauty excellence. 
-                                            We are proud to offer specialized care in <strong>Dental Services</strong>, <strong>Skincare</strong>, 
-                                            <strong>Laser Treatments</strong>, and <strong>Cosmetic Enhancements</strong>. 
-                                            Our expert team is dedicated to helping you achieve your beauty goals with advanced techniques and personalized care. 
-                                            Discover how we can bring out the best version of you today!
-                                          </p>
-                                    </section>
-
-
-							</div>
-							<div class="col-12">
-
-								<!-- Contact -->
-									<section>
-										<h2 class="major"><span>Get in touch</span></h2>
-										<ul class="contact">
-											<li><a class="icon brands fa-facebook-f" href="#"><span class="label">Facebook</span></a></li>
-											<li><a class="icon brands fa-twitter" href="#"><span class="label">Twitter</span></a></li>
-											<li><a class="icon brands fa-instagram" href="#"><span class="label">Instagram</span></a></li>
-											<li><a class="icon brands fa-snapchat" href="#"><span class="label">Snapchat</span></a></li>
-                                            <li><a class="icon brands fa-whatsapp" href="#"><span class="label">WhatsApp</span></a></li>
-
-										</ul>
-									</section>
-
-							</div>
+			<!-- Footer -->
+			<footer id="footer">
+				<div class="container">
+					<div class="row gtr-200">
+						<div class="col-12">
+							<section>
+								<h2 class="major"><span>About Glamour Beauty</span></h2>
+								<p>
+									Welcome to <strong>Glamour Beauty</strong>, your ultimate destination for health and beauty excellence. 
+									We are proud to offer specialized care in <strong>Dental Services</strong>, <strong>Skincare</strong>, 
+									<strong>Laser Treatments</strong>, and <strong>Cosmetic Enhancements</strong>. 
+									Our expert team is dedicated to helping you achieve your beauty goals with advanced techniques and personalized care. 
+									Discover how we can bring out the best version of you today!
+								</p>
+							</section>
 						</div>
-
-						<!-- Copyright -->
-							<div id="copyright">
-								<ul class="menu">
-									<li>&copy; Glamour Beauty.. All rights reserved</li> <!-- <li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
-								</ul>
-							</div>
-
 					</div>
-				</footer>
-
+				</div>
+			</footer>
 		</div>
-
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			
 	</body>
 </html>
+s
