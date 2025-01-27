@@ -18,7 +18,9 @@ section, summary, time, mark, audio, video {
 	border: 0;
 	font-size: 100%;
 	font: inherit;
-	vertical-align: baseline;}
+	vertical-align: baseline;
+	scroll-behavior: smooth;
+}
 
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -538,7 +540,9 @@ input::-moz-focus-inner {
 			display: block;
 			width: 100%;
 			margin: 0 0 2em 0;
+			
 		}
+		
 
 		.image.left {
 			float: left;
