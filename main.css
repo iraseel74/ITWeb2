@@ -572,11 +572,11 @@ input::-moz-focus-inner {
 		font-weight: 700;
 		text-transform: uppercase;
 		text-decoration: none;
-		background: #b1ddab;    /* ******************************************************************** */
+		background:rgba(255, 202, 227, 0.95);    /* ******************************************************************** */
 		color: #fff;
 		border: 0;
-		line-height: 1em;
-		border-radius: 8px;
+		line-height: 1.9em;
+		border-radius: 10px;
 		outline: 0;
 		cursor: pointer;
 		-moz-transition: background-color .2s ease-in-out;
@@ -594,7 +594,7 @@ input::-moz-focus-inner {
 		input[type="reset"]:hover,
 		button:hover,
 		.button:hover {
-			background: #c1edbb;
+			background: rgba(255, 202, 227, 0.95);
 		}
 
 		input[type="button"]:active,
@@ -904,7 +904,7 @@ form textarea {
 	form input[type="password"]:focus,
 	form select:focus,
 	form textarea:focus {
-		border-color: #a1cd9b;
+		border-color:rgba(255, 202, 227, 0.95);
 	}
 
 form input[type="text"],
@@ -1133,7 +1133,7 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
-    background-color: rgba(255, 218, 236, 0.95);
+    background-color: rgba(255, 255, 255, 0.95);
     background-image: url("images/overlay.png");
     width: 100%;
     height: 6.5em; /* Make the nav bar taller */
@@ -1207,7 +1207,7 @@ body {
 
 /* Current Page Highlight */
 #nav li.current a {
-    background: rgba(255, 120, 185, 0.95)
+    background: rgba(255, 120, 185, 0.95);
     color: #fff;
 }
 
@@ -1335,7 +1335,7 @@ body {
 
 #main {
 	background: #fff;
-	border-top: solid 5px rgba(255, 120, 185, 0.95)
+	border-top: solid 5px rgba(255, 120, 185, 0.95);
 	border-bottom: solid 5px #c1cac5;
 	border-top-width: 35px;
 	border-bottom-width: 10px;
@@ -1897,7 +1897,7 @@ th, td {
 	text-align: left;
 }
 th {
-	background-color:rgba(255, 120, 185, 0.95)
+	background-color:rgba(255, 120, 185, 0.95);
 	color:white;
 }
 tr:hover{
@@ -1919,19 +1919,14 @@ tbody tr:last-child td:last-child {
 	border-bottom-right-radius: 8px; /* الزاوية اليمنى السفلى */
 }
 .button {
-	background-color: rgba(255, 120, 185, 0.95)
+	background-color: rgba(255, 120, 185, 0.95);
 	color: white;
 	border: none;
 	padding: 5px 10px;
 	cursor: pointer;
 }
 
-	
-	
-	
-	
-	
-	
+
 	/*  styles LogIn-form */
 #login-form-container {
     display: flex;
@@ -1976,7 +1971,7 @@ tbody tr:last-child td:last-child {
 #login-form input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: rgba(255, 120, 185, 0.95)
+    background-color: rgba(255, 120, 185, 0.95);
     color: white;
     border: none;
     border-radius: 4px;
@@ -2033,7 +2028,7 @@ tbody tr:last-child td:last-child {
         input[type="submit"] {
             width: 100%;
             padding: 10px;
-            background-color: rgba(255, 120, 185, 0.95)
+            background-color: rgba(255, 120, 185, 0.95);
             color: white;
             border: none;
             border-radius: 4px;
