@@ -1122,85 +1122,94 @@ table {
 			display: inline;
 			color: #C1CAC5;
 		}
-
 /* Nav */
 
 body {
-	padding-top: 3.25em;
+    padding-top: 6em; /* Adjust padding to account for the taller nav bar */
 }
 
 #nav {
-	position: fixed;
-	top: 0;
-	left: 0;
-	z-index: 1000;
-	background-color: rgba(255, 255, 255, 0.95);
-	background-image: url("images/overlay.png");
-	width: 100%;
-	height: 6em;
-	line-height: 3.25em;
-	text-align: center;
-	font-family: 'Open Sans Condensed', sans-serif;
-	font-weight: 700;
-	text-transform: uppercase;
-	cursor: default;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.95);
+    background-image: url("images/overlay.png");
+    width: 100%;
+    height: 6.5em; /* Make the nav bar taller */
+    display: flex; /* Use flexbox for layout */
+    align-items: flex-start; /* Align items closer to the top */
+    justify-content: center; /* Center the content horizontally */
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: default;
+    padding: 0 1em;
 }
 
-	#nav ul {
-		position: relative;
-		z-index: 1001;
-	}
+/* Logo inside the #nav */
+#nav img {
+    position: absolute; /* Position the logo absolutely */
+    left: 1em; /* Keep the logo on the left */
+    height: 6em; /* Adjust logo height to fit the elongated nav bar */
+    width: auto; /* Maintain aspect ratio */
+    margin-top: 0.5em; /* Slightly push the logo down */
+}
 
-	#nav li {
-		display: inline-block;
-		margin: 0 0.5em 0 0.5em;
-		top: 0;
-		position: relative;
-		-moz-transition: top .15s ease-in-out;
-		-webkit-transition: top .15s ease-in-out;
-		-o-transition: top .15s ease-in-out;
-		-ms-transition: top .15s ease-in-out;
-		transition: top .15s ease-in-out;
-	}
+/* Navigation menu */
+#nav ul {
+    display: flex; /* Align list items horizontally */
+    margin: 0;
+    padding: 0;
+    list-style: none; /* Remove bullet points */
+    align-items: flex-start; /* Align links closer to the top of the nav bar */
+}
 
-		#nav li > ul {
-			display: none;
-		}
+#nav li {
+    display: inline-block;
+    margin: 0 1em; /* Add spacing between links */
+    position: relative;
+    top: 0em; /* Move the links closer to the top */
+    transition: top 0.15s ease-in-out;
+}
 
-		#nav li a, #nav li span {
-			-moz-transition: background-color .075s ease-in-out, color .075s ease-in-out;
-			-webkit-transition: background-color .075s ease-in-out, color .075s ease-in-out;
-			-ms-transition: background-color .075s ease-in-out, color .075s ease-in-out;
-			transition: background-color .075s ease-in-out, color .075s ease-in-out;
-			position: relative;
-			display: block;
-			text-decoration: none;
-			color: #6b7770;
-			top: -6px;
-			padding: 6px 1.5em 0.25em 1.5em;
-			border-bottom-left-radius: 6px;
-			border-bottom-right-radius: 6px;
-			outline: 0;
-		}
+/* Links */
+#nav li a, #nav li span {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: #6b7770;
+    padding: 6px 1.5em 0.25em 1.5em;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    transition: background-color 0.075s ease-in-out, color 0.075s ease-in-out;
+    outline: 0;
+}
 
-		#nav li:hover, #nav li.active {
-			top: 3px;
-		}
+#nav li a {
+    font-size: 1.25em; /* Increase font size for better visibility */
+}
 
-		#nav li:hover a, #nav li:hover span {
-			background: #C1CAC5;
-			color: #fff;
-		}
+/* Hover and Active States */
+#nav li:hover, #nav li.active {
+    top: -0.5em; /* Slight hover effect */
+}
 
-		#nav li.active a, #nav li.active span {
-			background: #C1CAC5;
-			color: #fff;
-		}
+#nav li:hover a, #nav li:hover span {
+    background: #C1CAC5;
+    color: #fff;
+}
 
-		#nav li.current a {
-			background: #00138e;
-			color: #fff;
-		}
+#nav li.active a, #nav li.active span {
+    background: #C1CAC5;
+    color: #fff;
+}
+
+/* Current Page Highlight */
+#nav li.current a {
+    background: #00138e;
+    color: #fff;
+}
 
 .dropotron {
 	list-style: none;
