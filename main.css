@@ -1133,7 +1133,7 @@ body {
     top: 0;
     left: 0;
     z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 218, 236, 0.95);
     background-image: url("images/overlay.png");
     width: 100%;
     height: 6.5em; /* Make the nav bar taller */
@@ -1207,7 +1207,7 @@ body {
 
 /* Current Page Highlight */
 #nav li.current a {
-    background: #00138e;
+    background: rgba(255, 120, 185, 0.95)
     color: #fff;
 }
 
@@ -1335,7 +1335,7 @@ body {
 
 #main {
 	background: #fff;
-	border-top: solid 5px #00138e;
+	border-top: solid 5px rgba(255, 120, 185, 0.95)
 	border-bottom: solid 5px #c1cac5;
 	border-top-width: 35px;
 	border-bottom-width: 10px;
@@ -1606,7 +1606,7 @@ body {
 				}
 
 				#titleBar .toggle:active:before {
-					background-color: #00138e;
+					background-color: rgba(255, 120, 185, 0.95)
 				}
 
 		#navPanel {
@@ -1897,7 +1897,7 @@ th, td {
 	text-align: left;
 }
 th {
-	background-color:#00138e ;
+	background-color:rgba(255, 120, 185, 0.95)
 	color:white;
 }
 tr:hover{
@@ -1919,7 +1919,7 @@ tbody tr:last-child td:last-child {
 	border-bottom-right-radius: 8px; /* الزاوية اليمنى السفلى */
 }
 .button {
-	background-color: #1328ad;
+	background-color: rgba(255, 120, 185, 0.95)
 	color: white;
 	border: none;
 	padding: 5px 10px;
@@ -1976,7 +1976,7 @@ tbody tr:last-child td:last-child {
 #login-form input[type="submit"] {
     width: 100%;
     padding: 10px;
-    background-color: #00138e;
+    background-color: rgba(255, 120, 185, 0.95)
     color: white;
     border: none;
     border-radius: 4px;
@@ -2033,7 +2033,7 @@ tbody tr:last-child td:last-child {
         input[type="submit"] {
             width: 100%;
             padding: 10px;
-            background-color: #00138e;
+            background-color: rgba(255, 120, 185, 0.95)
             color: white;
             border: none;
             border-radius: 4px;
