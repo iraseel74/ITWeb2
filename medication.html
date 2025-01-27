@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>Medications page</title>
+    <title>Medications Page</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="main.css" />
@@ -38,11 +38,10 @@
             font-weight: bold;
             margin-bottom: 8px;
             color: #555;
-            
         }
-      
+
         input[type="text"],
-        input[type="number"],#name {
+        input[type="number"] {
             width: 50%;
             height: 6vh;
             padding: 6px 8px;
@@ -54,19 +53,20 @@
 
         .radio-group1,
         .checkbox-group1 {
-            margin-bottom: 15px;
+            margin-bottom: 5px;
         }
 
         .radio-group1 label,
         .checkbox-group1 label {
             font-weight: normal;
-            margin-right: 10px;
+            display: block; /* Ensure labels are on new lines */
+            margin-bottom: 5px; /* Space between label and input */
         }
 
         input[type="radio"],
         input[type="checkbox"] {
             margin-right: 5px;
-            display: inline-block;
+            display: inline-block; /* Keep inputs inline */
         }
 
         button {
@@ -102,7 +102,7 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="DoctorPage.html">Doctor Page</a></li>
-                <li class="current"><a href="medication.html">Patient's medications</a></li>
+                <li class="current"><a href="medication.html">Patient's Medications</a></li>
             </ul>
         </nav>
 
@@ -112,16 +112,16 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="content"> <!-- Content -->
-                            <!-- Form Container -->
                             <div class="form-container1">
                                 <div class="form-box1">
                                     <h2>Patient's Medications</h2>
                                     <form>
-                                        <h3>patient infromation</h3>
+                                        <h3>Patient Information</h3>
                                         <label for="name">Patient's Name:</label>
                                         <input type="text" id="name" name="name" placeholder="Enter your name" value="Noora">
+                                        
                                         <label for="age">Age:</label>
-                                        <input style="width: 20%;" type="number"id="age" name="age" value="20">
+                                        <input style="width: 20%;" type="number" id="age" name="age" value="20">
 
                                         <label>Gender:</label>
                                         <div class="radio-group1">
@@ -152,7 +152,6 @@
             <div class="container">
                 <div class="row gtr-200">
                     <div class="col-12">
-                        <!-- About -->
                         <section>
                             <h2 class="major"><span>About Us</span></h2>
                             <p>
