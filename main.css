@@ -642,7 +642,12 @@ input::-moz-focus-inner {
 	   padding: 20px 40px;
       gap: 10px;
       justify-content: center;
+	  
     }
+.role-buttons button:hover {
+    background-color:rgba(255, 120, 185, 0.95);
+}	
+	
 /* List */
 
 ul {
@@ -2054,3 +2059,22 @@ input[type="radio"] {
 
 
 
+/*  Sign Out Button */
+#nav a.button {
+    background-color: red;  
+    color: white;           
+    padding: 4px 8px;     
+    border-radius: 5px;     
+    text-align: center;
+    text-decoration: none;  
+    font-weight: bold;
+    position: absolute;     
+    right: 10px;            
+    top: 50%;               
+    transform: translateY(-50%);  
+}
+
+
+#nav a.button:hover {
+    background-color: darkred;  
+}
