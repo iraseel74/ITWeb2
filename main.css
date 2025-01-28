@@ -602,7 +602,7 @@ input::-moz-focus-inner {
 		input[type="reset"]:active,
 		button:active,
 		.button:active {
-			background: #a1cd9b;
+			background: rgba(255, 202, 227, 0.95);;
 		}
 
 		input[type="button"].alt,
