@@ -105,6 +105,7 @@
                 <li><a href="DoctorPage.html">Doctor Page</a></li>
                 <li class="current"><a href="medication.html">Patient's Medications</a></li>
             </ul>
+			<a href="index.html" class="button" onclick="logOut()">Sign Out</a>
         </nav>
 
         <!-- Main -->
@@ -179,4 +180,10 @@
         </footer>
     </div>
 </body>
+<script>
+function logOut() {
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = "index.html";
+}
+</script>
 </html>
