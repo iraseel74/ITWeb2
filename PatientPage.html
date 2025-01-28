@@ -33,6 +33,7 @@
                         <li class="current"><a href="PatientPage.html.html">Patient's Page</a></li>
                         <li><a href="appointmentbooking.html">Appointment Booking</a></li>
                     </ul>
+					<a href="index.html" class="button" onclick="logOut()">Sign Out</a>
                 </nav>
 
             <!-- Main -->
@@ -267,4 +268,11 @@
 </div>
 
 </body>
+
+<script>
+function logOut() {
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = "index.html";
+}
+</script>
 </html>
