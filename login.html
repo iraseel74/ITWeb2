@@ -9,23 +9,33 @@
     <script>
         
         function redirectToRolePage(event) {
-            event.preventDefault(); 
+    event.preventDefault();
 
-            
-            var role = document.getElementById('role').value;
+   
+    localStorage.setItem('isLoggedIn', 'true');
 
-            
-            var redirectPage = '';
-            if (role === 'patient') {
-                redirectPage = 'PatientPage.html'; 
-            } else if (role === 'doctor') {
-                redirectPage = 'DoctorPage.html'; 
-            }
+   
+    var role = document.getElementById('role').value;
+	
+	localStorage.setItem('role', role);
+	
+    var redirectPage = '';
+    if (role === 'patient') {
+        redirectPage = 'PatientPage.html';
+    } else if (role === 'doctor') {
+        redirectPage = 'DoctorPage.html';
+    }
 
-           
-            window.location.href = redirectPage;
-        }
+    window.location.href = redirectPage;
+}
+
+function logOut() {
+    
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = "index.html"; 
+}
     </script>
+	
 </head>
 
 <body>
