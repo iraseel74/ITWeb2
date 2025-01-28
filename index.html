@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>TXT by HTML5 UP</title>
+		<title>Glamour beauty</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="main.css" />
@@ -26,9 +26,15 @@
 				</header>
 
 			<!-- Nav -->
-				<nav id="nav">
-					<a href="index.html"><img src="images/logo1.png" alt="Logo"></a>
-				</nav>
+            <nav id="nav">
+               
+			   <a href="index.html"><img src="images/logo1.png" alt="Logo"></a>
+               
+			
+			   
+               <a href="index.html" id="signOutButton" class="button" onclick="logOut()" style="display: none;">Sign Out</a>
+            
+			</nav>
 
 			<!-- Banner -->
 				<section id="banner">
@@ -127,8 +133,8 @@
 												</div>
 											<!--	<div class="col-12">
 													<ul class="actions">
-														<li><a href="#" class="button large">Do Something</a></li>
-														<li><a href="#" class="button alt large">Think About It</a></li>
+														<li><a href="#" class=""></a></li>
+														<li><a href="#" class=""></a></li>
 													</ul>
 												</div> -->
 											</div>
@@ -162,7 +168,7 @@
                             <p>
                                 Discover the latest techniques in dental care and how to achieve the perfect smile. From routine checkups to advanced treatments, we’ve got you covered.
                             </p>
-                            <a href="#" class="button">Read More</a>
+                         <!--   <a href="#" class="button">Read More</a>  -->
                         </article>
 
                     </div>
@@ -220,7 +226,7 @@
                                 </article>
                             </li>
                         </ul>
-                        <a href="#" class="button alt">View All Topics</a>
+                       <!-- <a href="#" class="button alt">View All Topics</a> -->
 
                     </div>
                 </div>
@@ -286,4 +292,59 @@
 		</div>
 
 	</body>
+	<script>
+    
+    window.onload = function() {
+        const isLoggedIn = localStorage.getItem('isLoggedIn');
+        const roleButtons = document.querySelector('.role-buttons');
+        const signOutButton = document.getElementById('signOutButton');
+		const userRole = localStorage.getItem('role'); // استرجاع الدور المخزن
+        const nav = document.getElementById('nav'); // الشريط الذي يحتوي على الروابط
+
+
+        
+        if (isLoggedIn === 'true') {
+            if (roleButtons) {
+                roleButtons.style.display = 'none'; 
+            }
+            if (signOutButton) {
+                signOutButton.style.display = 'block'; 
+            }
+        }
+		
+		
+	if (isLoggedIn === 'true') {
+    if (userRole === 'patient') {
+        let patientNav = '<ul>';
+        patientNav += '<a href="index.html"><img src="images/logo1.png" alt="Logo"></a>';
+        patientNav += '<li class="current"><a href="index.html">Home</a></li>';
+        patientNav += '<li><a href="PatientPage.html">Patient\'s Page</a></li>';
+        patientNav += '<li><a href="appointmentbooking.html">Appointment Booking</a></li>';
+        patientNav += '</ul>';
+        patientNav += '<a href="index.html" class="button" onclick="logOut()">Sign Out</a>';
+
+        nav.innerHTML = patientNav;
+    } else if (userRole === 'doctor') {
+        let doctorNav = '<ul>';
+        doctorNav += '<a href="index.html"><img src="images/logo1.png" alt="Logo"></a>';
+        doctorNav += '<li class="current"><a href="index.html">Home</a></li>';
+        doctorNav += '<li><a href="DoctorPage.html">Doctor Page</a></li>';
+        doctorNav += '<li><a href="medication.html">Medication</a></li>';
+        doctorNav += '</ul>';
+        doctorNav += '<a href="index.html" class="button" onclick="logOut()">Sign Out</a>';
+
+        nav.innerHTML = doctorNav;
+    }
+}
+	
+    };
+
+    
+    function logOut() {
+        localStorage.removeItem('isLoggedIn'); 
+		localStorage.removeItem('role');
+        window.location.href = "index.html"; 
+    }
+</script>
+
 </html>
