@@ -34,6 +34,7 @@
                         <li><a href="PatientPage.html">Patient's Page</a></li>
                         <li class="current"><a href="appointmentbooking.html">Appointment Booking</a></li>
                     </ul>
+					<a href="index.html" class="button" onclick="logOut()">Sign Out</a>
                 </nav>
 
             <!-- Main -->
@@ -86,8 +87,16 @@
                                                     window.location.href = "index.html";
                                                 });
                                             });
+											
+											
+											function logOut() {
+                                               localStorage.removeItem('isLoggedIn');
+                                               window.location.href = "index.html";
+                                            }
+																						
                                         </script>
-                                    </head>
+                                    
+									</head>
                                     <body>
                                         <h2>Book an Appointment</h2>
                                         
