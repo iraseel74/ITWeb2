@@ -30,8 +30,10 @@
 					</ul>
 				</nav>
 				
+				
+				
 				<div id="role-selection-container">
-					<label for="role-selection"><h2>Select your role :</h2></label>
+					<label class="Sign-Up" for="role-selection"><h2>Select your role :</h2></label> 
 					<input type="radio" id="patient" name="role" value="patient" onclick="showForm()">
 					<label for="patient">Patient</label>
 					<input type="radio" id="doctor" name="role" value="doctor" onclick="showForm()">
@@ -41,7 +43,7 @@
 
 					<!-- Patient Form -->
 					<form id="patient-form" onsubmit="navigateToPatientPage(event)">
-						<legend>Patient Sign-Up</legend>
+						<legend><h3>Patient Sign-Up</h3></legend>
 						<label for="first_name">First Name:</label>
 						<input type="text" id="first_name" name="first_name" required>
 
@@ -71,7 +73,7 @@
 
 					<!-- Doctor Form -->
 					<form id="doctor-form" onsubmit="navigateToDoctorPage(event)">
-						<legend>Doctor Sign-Up</legend>
+						<legend><h3>Doctor Sign-Up</h3></legend>
 						<label for="first_name">First Name:</label>
 						<input type="text" id="first_name_doc" name="first_name" required>
 
@@ -163,7 +165,7 @@
 										<!-- Copyright -->
 										<div id="copyright">
 											<ul class="menu">
-												<li>&copy; Glamour Beauty.. All rights reserved</li> <!-- <li>Design: <a href="http://html5up.net">HTML5 UP</a></li> -->
+												<li>&copy; Glamour Beauty.. All rights reserved</li> 
 											</ul>
 										</div>
 			</footer>
