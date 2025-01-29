@@ -543,6 +543,12 @@ input::-moz-focus-inner {
 			
 		}
 		
+		#image-dental{
+			display: block;
+			width: 60%;
+			margin: 0 0 2em 0;
+		}
+		
 
 		.image.left {
 			float: left;
@@ -1314,7 +1320,7 @@ body {
 			margin: 0 0 1.25em 0;
 		}
 
-		#banner .content .button {
+	/*	#banner .content .button {
 			-moz-transition: border-color .2s ease-in-out, color .2s ease-in-out;
 			-webkit-transition: border-color .2s ease-in-out, color .2s ease-in-out;
 			-ms-transition: border-color .2s ease-in-out, color .2s ease-in-out;
@@ -1334,7 +1340,7 @@ body {
 			#banner .content .button:active {
 				color: #fff;
 				border-color: #616763;
-			}
+			}  */
 
 /* Main */
 
@@ -1939,14 +1945,15 @@ tbody tr:last-child td:last-child {
     align-items: center;
     height: 100vh; /* Full viewport height */
 	background-color: white;
+	
 }
 
 #login-form {
-    width: 100%;
+    width: 1000%;
     max-width: 400px;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 15px;
     background-color: #fff;
 }
 
@@ -1958,7 +1965,7 @@ tbody tr:last-child td:last-child {
 
 #login-form label {
     font-size: 1.1em;
-    margin: 8px 0;
+    margin: 10px 0;
     display: block;
 }
 
@@ -1969,7 +1976,7 @@ tbody tr:last-child td:last-child {
     padding: 10px;
     margin: 8px 0;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 15px;
     font-size: 1em;
 }
 
@@ -1979,7 +1986,7 @@ tbody tr:last-child td:last-child {
     background-color: rgba(255, 120, 185, 0.95);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 15px;
     font-size: 1.2em;
     cursor: pointer;
 }
@@ -2007,13 +2014,17 @@ tbody tr:last-child td:last-child {
         #role-selection {
             margin-bottom: 20px;
         }
+		
+		#role-selection-container{
+			text-align:center;
+		}
 
         #patient-form, #doctor-form {
             display: none;
-            width: 300px;
+            width: 500px;
             padding: 20px;
             border: 1px solid #ccc;
-            border-radius: 8px;
+            border-radius: 15px;
             background-color: #f9f9f9; 
         }
 		
@@ -2027,7 +2038,7 @@ tbody tr:last-child td:last-child {
             padding: 8px;
             margin: 5px 0;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 15px;
         }
 
         input[type="submit"] {
@@ -2036,7 +2047,7 @@ tbody tr:last-child td:last-child {
             background-color: rgba(255, 120, 185, 0.95);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 15px;
             cursor: pointer;
         }
 
@@ -2061,10 +2072,10 @@ input[type="radio"] {
 
 /*  Sign Out Button */
 #nav a.button {
-    background-color: red;  
+    background-color:#c0171a;  
     color: white;           
     padding: 4px 8px;     
-    border-radius: 5px;     
+    border-radius: 15px;     
     text-align: center;
     text-decoration: none;  
     font-weight: bold;
@@ -2078,3 +2089,15 @@ input[type="radio"] {
 #nav a.button:hover {
     background-color: darkred;  
 }
+
+
+.Log-in{
+	text-align:center;
+}
+
+.Sign-Up{
+	text-align:center;
+}
+
+
+
