@@ -15,7 +15,7 @@
                 <header id="header">
                     <div class="logo container">
                         <div>
-							<h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.html" id="logo">Glamour beauty</a></h1><br>
+							<h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour beauty</a></h1><br>
 							<p>Your Journey to Timeless Elegance</p>
                         </div>
                     </div>
@@ -24,13 +24,13 @@
             <!-- Nav -->
                 <nav id="nav">
                     <ul>
-						<a href="index.html"><img src="images/logo1.png" alt="Logo"></a>
-                        <li><a href="index.html">Home</a></li>
+						<a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+                        <li><a href="index.php">Home</a></li>
                       
-                        <li><a href="PatientPage.html">Patient's Page</a></li>
-                        <li class="current"><a href="appointmentbooking.html">Appointment Booking</a></li>
+                        <li><a href="PatientPage.php">Patient's Page</a></li>
+                        <li class="current"><a href="appointmentbooking.php">Appointment Booking</a></li>
                     </ul>
-					<a href="index.html" class="button" onclick="logOut()">Sign Out</a>
+					<a href="index.php" class="button" onclick="logOut()">Sign Out</a>
                 </nav>
 
             <!-- Main -->
@@ -44,7 +44,7 @@
 
                                     <article class="box page-content">
                                         
-                                        <a href="PatientPage.html" class="button"> ← Back </a><br><br>
+                                        <a href="PatientPage.php" class="button"> ← Back </a><br><br>
                                         <header>
                                             <h2>Schedule Your Appointment</h2>
                                             <p style="font-size: larger; color:grey;">"Your health is our priority! Schedule your appointment online at your convenience. Choose a date and time that suits you, and share any health concerns below. We look forward to your visit!"</p>
@@ -80,14 +80,14 @@
                                     
                                                 bookingForm.addEventListener("submit", function(event) {
                                                     event.preventDefault();
-                                                    window.location.href = "index.html";
+                                                    window.location.href = "index.php";
                                                 });
                                             });
 											
 											
 											function logOut() {
                                                localStorage.removeItem('isLoggedIn');
-                                               window.location.href = "index.html";
+                                               window.location.href = "index.php";
                                             }
 																						
                                         </script>
@@ -127,7 +127,7 @@
                                             <label for="reason">Reason for Visit:</label>
                                             <textarea id="reason" name="reason" required></textarea>
                                             <br>
-                                            <a href="PatientPage.html" class="button">Book Appointment</a>
+                                            <a href="PatientPage.php" class="button">Book Appointment</a>
 
                                         </form><br>
 

@@ -15,7 +15,7 @@
                 <header id="header">
                     <div class="logo container">
                         <div>
-							<h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.html" id="logo">Glamour beauty</a></h1><br>
+							<h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour beauty</a></h1><br>
 							<p>Your Journey to Timeless Elegance</p>
                         </div>
                     </div>
@@ -24,12 +24,12 @@
             <!-- Nav -->
                 <nav id="nav">
                     <ul>
-						<a href="index.html"><img src="images/logo1.png" alt="Logo"></a>
-                        <li><a href="index.html">Home</a></li>
-                        <li class="current"><a href="PatientPage.html.html">Patient's Page</a></li>
-                        <li><a href="appointmentbooking.html">Appointment Booking</a></li>
+						<a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+                        <li><a href="index.php">Home</a></li>
+                        <li class="current"><a href="PatientPage.php">Patient's Page</a></li>
+                        <li><a href="appointmentbooking.php">Appointment Booking</a></li>
                     </ul>
-					<a href="index.html" class="button" onclick="logOut()">Sign Out</a>
+					<a href="index.php" class="button" onclick="logOut()">Sign Out</a>
                 </nav>
 
             <!-- Main -->
@@ -48,7 +48,7 @@
                                         </header>
 
             
-<a href="appointmentbooking.html" class="button">Request a new appointment</a> <br>  <br>                            
+<a href="appointmentbooking.php" class="button">Request a new appointment</a> <br>  <br>                            
 <h2>Upcoming Appointments</h2>
 <table>
     <thead>
@@ -281,7 +281,7 @@
 <script>
 function logOut() {
     localStorage.removeItem('isLoggedIn');
-    window.location.href = "index.html";
+    window.location.href = "index.php";
 }
 </script>
 </html>

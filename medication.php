@@ -93,7 +93,7 @@
         <header id="header">
             <div class="logo container">
                 <div>
-                    <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.html" id="logo">Glamour Beauty</a></h1><br>
+                    <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour Beauty</a></h1><br>
                     <p>Your Journey to Timeless Elegance</p>
                 </div>
             </div>
@@ -101,12 +101,12 @@
         <!-- Nav -->
         <nav id="nav">
             <ul>
-                <a href="index.html"><img src="images/logo1.png" alt="Logo"></a>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="DoctorPage.html">Doctor Page</a></li>
-                <li class="current"><a href="medication.html"> Medications</a></li>
+                <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+                <li><a href="index.php">Home</a></li>
+                <li><a href="DoctorPage.php">Doctor Page</a></li>
+                <li class="current"><a href="medication.php"> Medications</a></li>
             </ul>
-            <a href="index.html" class="button" onclick="logOut()">Sign Out</a>
+            <a href="index.php" class="button" onclick="logOut()">Sign Out</a>
         </nav>
 
         <!-- Main -->
@@ -139,7 +139,7 @@
                                             <label><input type="checkbox" name="medications" value="corticosteroids"> Corticosteroids</label>
                                             <label><input type="checkbox" name="medications" value="hyaluronic_acid"> Hyaluronic Acid</label>
                                         </div>
-                                        <a style="width: 100%;" href="DoctorPage.html" class="button">Submit</a>
+                                        <a style="width: 100%;" href="DoctorPage.php" class="button">Submit</a>
                                     </form>
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
     <script>
         function logOut() {
             localStorage.removeItem('isLoggedIn');
-            window.location.href = "index.html";
+            window.location.href = "index.php";
         }
     </script>
 </body>

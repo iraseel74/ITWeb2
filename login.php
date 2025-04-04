@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Log-in page</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script>
+        
+        function redirectToRolePage(event) {
+    event.preventDefault();
+
+   
+    localStorage.setItem('isLoggedIn', 'true');
+
+   
+    var role = document.getElementById('role').value;
+	
+	localStorage.setItem('role', role);
+	
+    var redirectPage = '';
+    if (role === 'patient') {
+        redirectPage = 'PatientPage.php';
+    } else if (role === 'doctor') {
+        redirectPage = 'DoctorPage.php';
+    }
+
+    window.location.href = redirectPage;
+}
+
+function logOut() {
+    
+    localStorage.removeItem('isLoggedIn');
+    window.location.href = "index.php"; 
+}
+    </script>
+	
+</head>
+
+<body>
+
+    <div id="page-wrapper">
+        <!-- Header -->
+        <header id="header">
+					<div class="logo container">
+						<div>
+							<h1><a href="index.php" id="logo">Glamour beauty</a></h1>	
+						</div>
+	
+					</div>
+				</header>
+        	<!-- Nav -->
+				<nav id="nav">
+                    <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+					<ul>
+						<li class="current"><a href="index.php">Home</a></li>
+					</ul>
+				</nav>
+
+        <!-- Log-in Form -->
+  <h2 class="Log-in">Log in to Your Account :</h2>       
+        <fieldset id="login-form-container">
+            <form id="login-form" onsubmit="redirectToRolePage(event)">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                </select>
+
+                <input type="submit" value="Log in">
+            </form>
+        </fieldset>
+        
+        <!-- Footer -->
+        <footer id="footer">
+            <div class="container">
+                <div class="row gtr-200">
+                    <div class="col-12">
+                        <section>
+                            <section>
+                                <h2 class="major"><span>About Glamour Beauty</span></h2>
+                                <p>
+                                  Welcome to <strong>Glamour Beauty</strong>, your ultimate destination for health and beauty excellence. 
+                                  We are proud to offer specialized care in <strong>Dental Services</strong>, <strong>Skincare</strong>, 
+                                  <strong>Laser Treatments</strong>, and <strong>Cosmetic Enhancements</strong>. 
+                                  Our expert team is dedicated to helping you achieve your beauty goals with advanced techniques and personalized care. 
+                                  Discover how we can bring out the best version of you today!
+                                </p>
+                          </section>
+                    </div>
+                    <div class="col-12">
+                        <section>
+                            <h2 class="major"><span>Get in touch</span></h2>
+                            <ul class="contact">
+                                <li><a class="icon brands fa-facebook-f" href="#"><span class="label">Facebook</span></a></li>
+                                <li><a class="icon brands fa-twitter" href="#"><span class="label">Twitter</span></a></li>
+                                <li><a class="icon brands fa-instagram" href="#"><span class="label">Instagram</span></a></li>
+                                <li><a class="icon brands fa-snapchat" href="#"><span class="label">Snapchat</span></a></li>
+                                <li><a class="icon brands fa-whatsapp" href="#"><span class="label">WhatsApp</span></a></li>
+                            </ul>
+                        </section>
+                    </div>
+                </div>
+                <div id="copyright">
+                    <ul class="menu">
+                        <li>&copy; Glamour Beauty.. All rights reserved</li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

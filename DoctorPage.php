@@ -14,7 +14,7 @@
         <header id="header">
             <div class="logo container">
                 <div>
-                    <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.html" id="logo">Glamour Beauty</a></h1><br>
+                    <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour Beauty</a></h1><br>
                     <p>Your Journey to Timeless Elegance</p>
                 </div>
             </div>
@@ -23,12 +23,12 @@
         <!-- Nav -->
         <nav id="nav">
             <ul>
-                <a href="index.html"><img src="images/logo1.png" alt="Logo"></a>
-                <li><a href="index.html">Home</a></li>
-                <li class="current"><a href="DoctorPage.html">Doctor Page</a></li>
-                <li><a href="medication.html">Medications</a></li>
+                <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+                <li><a href="index.php">Home</a></li>
+                <li class="current"><a href="DoctorPage.php">Doctor Page</a></li>
+                <li><a href="medication.php">Medications</a></li>
             </ul>
-            <a href="index.html" class="button" onclick="logOut()">Sign Out</a>
+            <a href="index.php" class="button" onclick="logOut()">Sign Out</a>
         </nav>
 
         <!-- Main -->
@@ -95,14 +95,14 @@
                                             <td>40</td>
                                             <td>Female</td>
                                             <td>Botox</td>
-                                            <td><a href="medication.html">Prescribe</a></td>
+                                            <td><a href="medication.php">Prescribe</a></td>
                                         </tr>
                                         <tr>
                                             <td>Majed Saleh</td>
                                             <td>35</td>
                                             <td>Male</td>
                                             <td>Hyaluronic Acid</td>
-                                            <td><a href="medication.html">Prescribe</a></td>
+                                            <td><a href="medication.php">Prescribe</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
