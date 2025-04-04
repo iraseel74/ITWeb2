@@ -26,37 +26,43 @@
                 </div>
             </header>
 
-            <!-- Nav -->
-            <nav id="nav">
-                <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
-
-        
-            </nav>
-
-            <!-- Banner -->
-            <section id="banner">
-                <div class="content">
-                    <h2 style="color: #c1c2ca; font-family: 'ELEGANT', sans-serif">health .. wellness .. Lifestyle ..</h2>
-                    <p style="font-family: 'ELEGANT', sans-serif;">TAKE TIME FOR YOURSELF,<br> YOU DESERVE IT!</p>
-					<?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
-                    <a href="index.php" id="signOutButton" class="button" onclick="logOut()">Sign Out</a>
-                <?php else: ?>
-                    <div class="role-buttons">
-                        <button onclick="location.href='login.php'">Log In</button>
-                        <button onclick="location.href='signup.php'">Sign Up</button>
-                    </div>
-                <?php endif; ?>
-                </div>
-
-                <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
-                    <?php if($_SESSION['role'] == 'patient'): ?>
-                        <a href="PatientPage.php" class="button">Go to Patient's Page</a>
-                    <?php elseif($_SESSION['role'] == 'doctor'): ?>
-                        <a href="DoctorPage.php" class="button">Go to Doctor's Page</a>
+             <!-- Nav -->
+			 <nav id="nav">
+                    <ul>
+						<a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+                        <li class="current"><a href="index.php">Home</a></li>
+                        <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
+                            <?php if($_SESSION['role'] == 'patient'): ?>
+                                <li ><a href="PatientPage.php">Patient's Page</a></li>
+								<li><a href="appointmentbooking.php">Appointment Booking</a></li>
+                            <?php elseif($_SESSION['role'] == 'doctor'): ?>
+                                <li ><a href="DoctorPage.php">Doctor's Page</a></li>
+                                <li><a href="medication.php">Medications</a></li>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </ul>
+                    <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
+                        <a href="logout.php" class="button">Sign Out</a>
                     <?php endif; ?>
-                <?php endif; ?>
-				
-            </section>
+                </nav>
+
+       <!-- Banner -->
+<section id="banner">
+    <div class="content">
+        <h2 style="color: #c1c2ca; font-family: 'ELEGANT', sans-serif">health .. wellness .. Lifestyle ..</h2>
+        <p style="font-family: 'ELEGANT', sans-serif;">TAKE TIME FOR YOURSELF,<br> YOU DESERVE IT!</p>
+        <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
+            <!-- No sign out button here anymore -->
+        <?php else: ?>
+            <div class="role-buttons">
+                <button onclick="location.href='login.php'">Log In</button>
+                <button onclick="location.href='signup.php'">Sign Up</button>
+            </div>
+        <?php endif; ?>
+    </div>
+
+</section>
+
 
             <!-- Main Section -->
             <section id="main">
@@ -135,13 +141,5 @@
         </div>
 
     </body>
-    <script>
-        // Log Out Functionality
-        function logOut() {
-            <?php
-                session_destroy(); // Destroy the session on the server
-            ?>
-            window.location.href = "index.php"; // Redirect to the home page
-        }
-    </script>
+
 </html>

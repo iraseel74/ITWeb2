@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -28,8 +30,10 @@
                 <li class="current"><a href="DoctorPage.php">Doctor Page</a></li>
                 <li><a href="medication.php">Medications</a></li>
             </ul>
-            <a href="index.php" class="button" onclick="logOut()">Sign Out</a>
-        </nav>
+            <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
+                        <a href="logout.php" class="button">Sign Out</a>
+                    <?php endif; ?>
+                        </nav>
 
         <!-- Main -->
         <section id="main">

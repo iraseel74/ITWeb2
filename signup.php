@@ -1,3 +1,6 @@
+<?php
+session_start();  
+?>
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -101,9 +104,9 @@
 
 						<label for="speciality">Speciality:</label>
 						<select id="speciality" name="speciality" required>
-							<option value="general">General</option>
-							<option value="dentist">Dentist</option>
-							<option value="dermatologist">Dermatologist</option>
+							<option value="Laser Specialist">Laser Specialist</option>
+							<option value="Cosmetic Physician">Cosmetic Physician</option>
+							<option value="Dermatologist">Dermatologist</option>
 						</select>
 
 						<label for="email">Email:</label>

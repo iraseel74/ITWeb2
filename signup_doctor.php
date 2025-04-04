@@ -72,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         exit();
 
     } catch (mysqli_sql_exception $e) {
+        // Handle exception with error message
         header("Location: signup.php?error=An unexpected error occurred. Please try again.");
         exit();
     }
@@ -79,3 +80,4 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     header("Location: signup.php");
     exit();
 }
+?>
