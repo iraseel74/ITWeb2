@@ -3,6 +3,11 @@ session_start();
 include('db.php');
 
 
+// Check if doctor is logged in
+if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true || $_SESSION['role'] !== 'doctor') {
+    header("Location: login.php");
+    exit();
+}
 
 
 
