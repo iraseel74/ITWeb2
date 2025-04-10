@@ -35,10 +35,45 @@ $app_result = $app_stmt->get_result();
     <title>Patient Dashboard</title>
     <link rel="stylesheet" href="main.css">
 </head>
+
+        <!-- Header -->
+        <header id="header">
+            <div class="logo container">
+                <div>
+                    <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour Beauty</a></h1><br>
+                    <p>Your Journey to Timeless Elegance</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Nav -->
+        <nav id="nav">
+            <ul>
+                <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+                <li><a href="index.php">Home</a></li>
+                <li class="current"><a href="PatientPage.php">patient Page</a></li>
+               
+            </ul>
+            <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
+                        <a href="logout.php" class="button">Sign Out</a>
+                    <?php endif; ?>
+                        </nav>
 <body>
-    <h1>Welcome, <?= htmlspecialchars($patient['firstName'] . ' ' . $patient['lastName']) ?></h1>
+        <!-- Main -->
+        <section id="main">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 col-12-medium">
+                        <div class="content">
+                            <article class="box page-content">
+                                <header>
+                                    <h1>Welcome, <?= htmlspecialchars($patient['firstName'] . ' ' . $patient['lastName']) ?></h1>
     <p>Email: <?= htmlspecialchars($patient['emailAddress']) ?></p>
 
+                                </header>
+
+    
     <?php if (isset($_SESSION['message'])): ?>
         <p style="color: green;"><?= $_SESSION['message'] ?></p>
         <?php unset($_SESSION['message']); ?>
