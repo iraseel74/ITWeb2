@@ -8,51 +8,49 @@ if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true || $_SES
     exit();
 }
 
-// Check if patient_id is provided
-if (!isset($_GET['patient_id'])) {
-    header("Location: DoctorPage.php");
-    exit();
-}
-
-$patient_id = $_GET['patient_id'];
+$patient_id = isset($_GET['patient_id']) ? $_GET['patient_id'] : null;
 $appointment_id = isset($_GET['appointment_id']) ? $_GET['appointment_id'] : null;
 
-// Get patient information
-$stmt = $conn->prepare("
-    SELECT id, firstName, lastName, Gender, TIMESTAMPDIFF(YEAR, DoB, CURDATE()) as age 
-    FROM patient 
-    WHERE id = ?
-");
-$stmt->bind_param("i", $patient_id);
-$stmt->execute();
-$result = $stmt->get_result();
-$patient = $result->fetch_assoc();
+// Get patient information if available
+$patient = null;
+if ($patient_id) {
+    $stmt = $conn->prepare("
+        SELECT id, firstName, lastName, Gender, TIMESTAMPDIFF(YEAR, DoB, CURDATE()) as age 
+        FROM patient 
+        WHERE id = ?
+    ");
+    $stmt->bind_param("i", $patient_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $patient = $result->fetch_assoc();
 
-if (!$patient) {
-    header("Location: DoctorPage.php");
-    exit();
+    if (!$patient) {
+        header("Location: DoctorPage.php");
+        exit();
+    }
 }
 
 // Process form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $medications = isset($_POST['medications']) ? $_POST['medications'] : [];
-    
-    // Update appointment status to Done if appointment_id is provided
-    if ($appointment_id) {
+
+    // Only insert prescriptions if patient and appointment are set
+    if ($patient_id && $appointment_id) {
+        // Update appointment status to Done
         $stmt = $conn->prepare("UPDATE appointment SET status = 'Done' WHERE id = ?");
         $stmt->bind_param("i", $appointment_id);
         $stmt->execute();
+
+        // Insert prescriptions
+        foreach ($medications as $medication_id) {
+            $stmt = $conn->prepare("INSERT INTO prescription (AppointmentID, MedicationID) VALUES (?, ?)");
+            $stmt->bind_param("ii", $appointment_id, $medication_id);
+            $stmt->execute();
+        }
+
+        header("Location: DoctorPage.php");
+        exit();
     }
-    
-    // Insert prescriptions
-    foreach ($medications as $medication_id) {
-        $stmt = $conn->prepare("INSERT INTO prescription (AppointmentID, MedicationID) VALUES (?, ?)");
-        $stmt->bind_param("ii", $appointment_id, $medication_id);
-        $stmt->execute();
-    }
-    
-    header("Location: DoctorPage.php");
-    exit();
 }
 
 // Get all medications
@@ -184,32 +182,38 @@ $medications = $result->fetch_all(MYSQLI_ASSOC);
                         <div class="content">
                             <div class="form-container">
                                 <div class="form-box">
-                                    <h2 style="color: #333;">Patient's Medications</h2>
-                                    <form method="POST" action="medication.php?patient_id=<?php echo $patient_id; ?><?php echo $appointment_id ? '&appointment_id='.$appointment_id : ''; ?>">
-                                        <h3>Patient Information</h3>
-                                        <label for="name">Patient's Name:</label>
-                                        <input type="text" id="name" name="name" placeholder="Enter your name" value="<?php echo htmlspecialchars($patient['firstName'] . ' ' . $patient['lastName']); ?>" readonly>
-                                        
-                                        <label for="age">Age:</label>
-                                        <input style="width: 20%;" type="number" id="age" name="age" value="<?php echo htmlspecialchars($patient['age']); ?>" readonly>
+                                <h2 style="color: #333;">Patient's Medications</h2>
+<form method="POST" action="medication.php<?php echo $patient_id ? '?patient_id=' . $patient_id : ''; ?><?php echo $appointment_id ? '&appointment_id=' . $appointment_id : ''; ?>">
+    <h3>Patient Information</h3>
 
-                                        <label>Gender:</label>
-                                        <div class="radio-group">
-                                            <label><input type="radio" name="gender" value="male" <?php echo $patient['Gender'] == 'Male' ? 'checked' : ''; ?> disabled> Male</label>
-                                            <label><input type="radio" name="gender" value="female" <?php echo $patient['Gender'] == 'Female' ? 'checked' : ''; ?> disabled> Female</label>
-                                        </div>
+    <?php if ($patient): ?>
+        <label for="name">Patient's Name:</label>
+        <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($patient['firstName'] . ' ' . $patient['lastName']); ?>" readonly>
 
-                                        <label>Medications:</label>
-                                        <div class="checkbox-group">
-                                            <?php foreach ($medications as $medication): ?>
-                                            <label>
-                                                <input type="checkbox" name="medications[]" value="<?php echo $medication['id']; ?>">
-                                                <?php echo htmlspecialchars($medication['MedicationName']); ?>
-                                            </label>
-                                            <?php endforeach; ?>
-                                        </div>
-                                        <input type="submit" class="button" value="Submit">
-                                    </form>
+        <label for="age">Age:</label>
+        <input style="width: 20%;" type="number" id="age" name="age" value="<?php echo htmlspecialchars($patient['age']); ?>" readonly>
+
+        <label>Gender:</label>
+        <div class="radio-group">
+            <label><input type="radio" name="gender" value="male" <?php echo $patient['Gender'] == 'Male' ? 'checked' : ''; ?> disabled> Male</label>
+            <label><input type="radio" name="gender" value="female" <?php echo $patient['Gender'] == 'Female' ? 'checked' : ''; ?> disabled> Female</label>
+        </div>
+    <?php else: ?>
+        <p style="color: red;"><strong>No patient selected.</strong></p>
+    <?php endif; ?>
+
+    <label>Medications:</label>
+    <div class="checkbox-group">
+        <?php foreach ($medications as $medication): ?>
+        <label>
+            <input type="checkbox" name="medications[]" value="<?php echo $medication['id']; ?>">
+            <?php echo htmlspecialchars($medication['MedicationName']); ?>
+        </label>
+        <?php endforeach; ?>
+    </div>
+    <input type="submit" class="button" value="Submit">
+</form>
+
                                 </div>
                             </div>
                         </div>
