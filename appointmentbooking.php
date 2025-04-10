@@ -2,127 +2,187 @@
 session_start();
 include('db.php');
 
-// Redirect if not logged in as patient
-if (!isset($_SESSION['isLoggedIn']) || $_SESSION['role'] !== 'patient') {
-    header("Location: login.php");
-    exit();
-}
+// Initialize variables
+$specialties = [];
+$selectedDoctors = [];
 
-$specialty = $_POST['specialty'] ?? '';
-$doctors = [];
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['specialty'])) {
-    // Load doctors with selected specialty
-    $stmt = $conn->prepare("SELECT id, firstName, lastName FROM doctor WHERE specialty = ?");
-    $stmt->bind_param("s", $specialty);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    while ($row = $result->fetch_assoc()) {
-        $doctors[] = $row;
+// Get all specialties
+$specialty_sql = "SELECT * FROM speciality";
+$specialty_result = $conn->query($specialty_sql);
+if ($specialty_result->num_rows > 0) {
+    while ($row = $specialty_result->fetch_assoc()) {
+        $specialties[] = $row;
     }
 }
 
-// Handle booking
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['doctorId'], $_POST['date'], $_POST['time'], $_POST['reason'])) {
-    $doctorId = $_POST['doctorId'];
-    $date = $_POST['date'];
-    $time = $_POST['time'];
-    $reason = $_POST['reason'];
-    $patientId = $_SESSION['userId'];
+// Handle form submissions
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Step 1: Get doctors by specialty
+    if (isset($_POST['select_specialty'])) {
+        $specialty_id = $_POST['specialty'];
+        $stmt = $conn->prepare("SELECT * FROM doctor WHERE SpecialityID = ?");
+        $stmt->bind_param("i", $specialty_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        while ($row = $result->fetch_assoc()) {
+            $selectedDoctors[] = $row;
+        }
+        $stmt->close();
+    }
 
-    $insert = $conn->prepare("INSERT INTO appointment (patientId, doctorId, date, time, reason, status) VALUES (?, ?, ?, ?, ?, 'Pending')");
-    $insert->bind_param("iisss", $patientId, $doctorId, $date, $time, $reason);
-    $insert->execute();
+    // Step 2: Book appointment
+    if (isset($_POST['book_appointment'])) {
+        $doctor_id = $_POST['doctor'];
+        $date = $_POST['date'];
+        $time = $_POST['time'];
+        $reason = $_POST['reason'];
+        $patient_id = $_SESSION['userId'];
 
-    $_SESSION['message'] = "Appointment booked successfully!";
-    header("Location: PatientPage.php");
-    exit();
+        $stmt = $conn->prepare("INSERT INTO appointment (DoctorID, PatientID, date, time, reason, status) VALUES (?, ?, ?, ?, ?, 'Pending')");
+        $stmt->bind_param("iisss", $doctor_id, $patient_id, $date, $time, $reason);
+        $stmt->execute();
+        $stmt->close();
+
+        header("Location: PatientPage.php?message=Appointment+Booked+Successfully");
+        exit();
+    }
 }
 ?>
 
-
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-<title>Appointment Booking</title>
-    <title>Patient Dashboard</title>
+    <title>Appointment Booking</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-        <!-- Header -->
-        <header id="header">
-            <div class="logo container">
-                <div>
-                    <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour Beauty</a></h1><br>
-                    <p>Your Journey to Timeless Elegance</p>
+<body class="is-preload">
+<div id="page-wrapper">
+
+    <!-- Header -->
+    <header id="header">
+        <div class="logo container">
+            <div>
+                <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour beauty</a></h1><br>
+                <p>Your Journey to Timeless Elegance</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Nav -->
+    <nav id="nav">
+        <ul>
+            <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="PatientPage.php">Patient's Page</a></li>
+            <li class="current"><a href="appointmentbooking.php">Appointment Booking</a></li>
+        </ul>
+        <?php if (isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
+            <a href="logout.php" class="button">Sign Out</a>
+        <?php endif; ?>
+    </nav>
+
+    <!-- Main -->
+    <section id="main">
+        <div class="container">
+            <div class="row">
+                <div class="col-9 col-12-medium">
+                    <div class="content">
+
+                        <article class="box page-content">
+                            <a href="PatientPage.php" class="button"> ← Back </a><br><br>
+                            <header>
+                                <h2>Schedule Your Appointment</h2>
+                                <p style="font-size: larger; color:grey;">"Your health is our priority! Schedule your appointment online at your convenience. Choose a date and time that suits you, and share any health concerns below. We look forward to your visit!"</p>
+                            </header>
+
+                            <!-- Step 1: Select Specialty -->
+                            <form method="POST">
+                                <label for="specialty">Select Specialty:</label>
+                                <select name="specialty" id="specialty" required>
+                                    <option value="">-- Choose --</option>
+                                    <?php foreach ($specialties as $spec): ?>
+                                        <option value="<?= $spec['id'] ?>" <?= (isset($_POST['specialty']) && $_POST['specialty'] == $spec['id']) ? 'selected' : '' ?>>
+                                            <?= htmlspecialchars($spec['speciality']) ?>
+                                        </option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <br><br>
+                                <button type="submit" name="select_specialty" class="button">Next</button>
+                            </form>
+
+                            <br>
+
+                            <!-- Step 2: Booking Form -->
+                            <?php if (!empty($selectedDoctors)): ?>
+                                <form method="POST">
+                                    <input type="hidden" name="specialty" value="<?= $_POST['specialty'] ?>">
+
+                                    <label for="doctor">Select Doctor:</label>
+                                    <select name="doctor" id="doctor" required>
+                                        <option value="">-- Choose Doctor --</option>
+                                        <?php foreach ($selectedDoctors as $doc): ?>
+                                            <option value="<?= $doc['id'] ?>">Dr. <?= htmlspecialchars($doc['firstName'] . ' ' . $doc['lastName']) ?></option>
+                                        <?php endforeach; ?>
+                                    </select><br><br>
+
+                                    <label for="date">Date:</label>
+                                    <input type="date" name="date" required><br><br>
+
+                                    <label for="time">Time:</label>
+                                    <input type="time" name="time" required><br><br>
+
+                                    <label for="reason">Reason for Visit:</label><br>
+                                    <textarea name="reason" rows="4" required></textarea><br><br>
+
+                                    <button type="submit" name="book_appointment" class="button">Book Appointment</button>
+                                </form>
+                            <?php endif; ?>
+
+                        </article>
+                    </div>
                 </div>
             </div>
-        </header>
+        </div>
+    </section>
 
-        <!-- Nav -->
-        <nav id="nav">
-            <ul>
-                <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
-                <li><a href="index.php">Home</a></li>
-                <li class="current"><a href="PatientPage.php">patient Page</a></li>
-               
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <div class="row gtr-200">
+                <div class="col-12">
+                    <section>
+                        <h2 class="major"><span>About Glamour Beauty</span></h2>
+                        <p>
+                            Welcome to <strong>Glamour Beauty</strong>, your ultimate destination for health and beauty excellence.
+                            We are proud to offer specialized care in <strong>Dental Services</strong>, <strong>Skincare</strong>,
+                            <strong>Laser Treatments</strong>, and <strong>Cosmetic Enhancements</strong>.
+                            Our expert team is dedicated to helping you achieve your beauty goals with advanced techniques and personalized care.
+                        </p>
+                    </section>
+                </div>
+                <div class="col-12">
+                    <section>
+                        <h2 class="major"><span>Get in touch</span></h2>
+                        <ul class="contact">
+                            <li><a class="icon brands fa-facebook-f" href="#"><span class="label">Facebook</span></a></li>
+                            <li><a class="icon brands fa-twitter" href="#"><span class="label">Twitter</span></a></li>
+                            <li><a class="icon brands fa-instagram" href="#"><span class="label"><img src="images/instagram.png" alt="Instagram"></span></a></li>
+                            <li><a class="icon brands fa-dribbble" href="#"><span class="label">Dribbble</span></a></li>
+                            <li><a class="icon brands fa-linkedin-in" href="#"><span class="label">LinkedIn</span></a></li>
+                        </ul>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div id="copyright">
+            <ul class="menu">
+                <li>&copy; Glamour Beauty. All rights reserved</li>
             </ul>
-            <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
-                        <a href="logout.php" class="button">Sign Out</a>
-                    <?php endif; ?>
-                        </nav>
-<body>
-        <!-- Main -->
-        <section id="main">
-            
-            <div class="container">
-                <div class="row">
-                    <div class="col-9 col-12-medium">
-                        <div class="content">
-                            <article class="box page-content">
- 
-    <h2>Book an Appointment</h2>
-    <a href="PatientPage.php">← Back to Patient Page</a><br><br>
+        </div>
+    </footer>
 
-    <!-- First form: Select specialty -->
-    <form method="POST">
-        <label>Select Specialty:</label>
-        <select name="specialty" required>
-            <option value="">-- Select --</option>
-            <option value="Dermatology" <?= $specialty == "Dermatology" ? "selected" : "" ?>>Dermatology</option>
-            <option value="Aesthetic Surgery" <?= $specialty == "Aesthetic Surgery" ? "selected" : "" ?>>Aesthetic Surgery</option>
-            <option value="Cosmetic Dentistry" <?= $specialty == "Cosmetic Dentistry" ? "selected" : "" ?>>Cosmetic Dentistry</option>
-            <option value="Plastic Surgery" <?= $specialty == "Plastic Surgery" ? "selected" : "" ?>>Plastic Surgery</option>
-            <option value="Laser Treatments" <?= $specialty == "Laser Treatments" ? "selected" : "" ?>>Laser Treatments</option>
-        </select>
-        <button type="submit">Show Doctors</button>
-    </form>
-
-    <?php if (!empty($doctors)): ?>
-        <hr>
-        <form method="POST">
-            <input type="hidden" name="specialty" value="<?= htmlspecialchars($specialty) ?>">
-            <label>Select Doctor:</label>
-            <select name="doctorId" required>
-                <option value="">-- Choose --</option>
-                <?php foreach ($doctors as $doc): ?>
-                    <option value="<?= $doc['id'] ?>"><?= htmlspecialchars($doc['firstName'] . ' ' . $doc['lastName']) ?></option>
-                <?php endforeach; ?>
-            </select><br><br>
-
-            <label>Date:</label>
-            <input type="date" name="date" required><br>
-
-            <label>Time:</label>
-            <input type="time" name="time" required><br>
-
-            <label>Reason:</label>
-            <textarea name="reason" required></textarea><br>
-
-            <button type="submit">Book Appointment</button>
-        </form>
-    <?php endif; ?>
+</div>
 </body>
 </html>
