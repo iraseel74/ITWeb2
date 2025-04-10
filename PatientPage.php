@@ -97,20 +97,17 @@
 <div class="col-3 col-12-medium">
     <div class="sidebar">
 
-        <!-- Sidebar -->
 
-            <!-- Recent Posts -->
-                                        <!-- Recent Posts -->
-                                        <section>
-                                            <!--  <h2 class="major"><span></span></h2>-->
-                                              <ul class="divided">
-                                                  <br>
-                                                  <br>
-                                                  <li>
-                                                      <article class="box post-summary">
-                                                          <h3><a href="#">Name:</a></h3>
-                                                          <ul class="meta">
-                                                              <li >Noha Alrasheed</li>
+        <section>
+                    
+        <ul class="divided">
+    <br>
+    <br>
+    <li>
+    <article class="box post-summary">
+     <h3><a href="#">Name:</a></h3>
+    <ul class="meta">
+      <h1 id="patientName">Welcome, <?= $user['firstName']; ?> <?= $user['lastName']; ?></h1>
                                                           </ul>
                                                       </article>
                                                   </li>
