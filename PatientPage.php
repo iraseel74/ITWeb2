@@ -1,55 +1,79 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include('db.php');
 
-<!DOCTYPE HTML>
+if (!isset($_SESSION['isLoggedIn']) || $_SESSION['role'] !== 'patient') {
+    header("Location: login.php");
+    exit();
+}
 
+$patientId = $_SESSION['userId'];
+
+// Get patient info
+$stmt = $conn->prepare("SELECT firstName, lastName, emailAddress FROM patient WHERE id = ?");
+$stmt->bind_param("i", $patientId);
+$stmt->execute();
+$result = $stmt->get_result();
+$patient = $result->fetch_assoc();
+
+// Get appointments
+$app_stmt = $conn->prepare("
+    SELECT a.id, a.date, a.time, a.status, d.firstName AS doctorFirstName, d.lastName AS doctorLastName  
+    FROM appointment a
+    JOIN doctor d ON a.doctorId = d.id
+    WHERE a.patientId = ?
+    ORDER BY a.date, a.time
+");
+$app_stmt->bind_param("i", $patientId);
+$app_stmt->execute();
+$app_result = $app_stmt->get_result();
+?>
+
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>Patient Page</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <link rel="stylesheet" href="main.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    </head>
-    <body class="is-preload">
-        <div id="page-wrapper">
+<head>
+    <title>Patient Dashboard</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+        <!-- Header -->
+        <header id="header">
+            <div class="logo container">
+                <div>
+                    <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour Beauty</a></h1><br>
+                    <p>Your Journey to Timeless Elegance</p>
+                </div>
+            </div>
+        </header>
 
-            <!-- Header -->
-                <header id="header">
-                    <div class="logo container">
-                        <div>
-							<h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour beauty</a></h1><br>
-							<p>Your Journey to Timeless Elegance</p>
-                        </div>
-                    </div>
-                </header>
-
-            <!-- Nav -->
-                <nav id="nav">
-                    <ul>
-						<a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
-                        <li><a href="index.php">Home</a></li>
-                        <li class="current"><a href="PatientPage.php">Patient's Page</a></li>
-                        <li><a href="appointmentbooking.php">Appointment Booking</a></li>
-                    </ul>
-                    <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
+        <!-- Nav -->
+        <nav id="nav">
+            <ul>
+                <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+                <li><a href="index.php">Home</a></li>
+                <li class="current"><a href="PatientPage.php">patient Page</a></li>
+               
+            </ul>
+            <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
                         <a href="logout.php" class="button">Sign Out</a>
                     <?php endif; ?>
-                </nav>
+                        </nav>
+<body>
+        <!-- Main -->
+        <section id="main">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 col-12-medium">
+                        <div class="content">
+                            <article class="box page-content">
+                                <header>
+                                    <h1>Welcome, <?= htmlspecialchars($patient['firstName'] . ' ' . $patient['lastName']) ?></h1>
+    <p>Email: <?= htmlspecialchars($patient['emailAddress']) ?></p>
 
-            <!-- Main -->
-            <section id="main">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-9 col-12-medium">
-                            <div class="content">
-
-                                <!-- Content -->
-
-                                    <article class="box page-content">
-
-                                        <header>
-                                            <h2>Welcome, Noha</h2>
-                                        </header>
+                                </header>
 
             
 <a href="appointmentbooking.php" class="button">Request a new appointment</a> <br>  <br>                            
@@ -97,17 +121,20 @@
 <div class="col-3 col-12-medium">
     <div class="sidebar">
 
+        <!-- Sidebar -->
 
-        <section>
-                    
-        <ul class="divided">
-    <br>
-    <br>
-    <li>
-    <article class="box post-summary">
-     <h3><a href="#">Name:</a></h3>
-    <ul class="meta">
-      <h1 id="patientName">Welcome, <?= $user['firstName']; ?> <?= $user['lastName']; ?></h1>
+            <!-- Recent Posts -->
+                                        <!-- Recent Posts -->
+                                        <section>
+                                            <!--  <h2 class="major"><span></span></h2>-->
+                                              <ul class="divided">
+                                                  <br>
+                                                  <br>
+                                                  <li>
+                                                      <article class="box post-summary">
+                                                          <h3><a href="#">Name:</a></h3>
+                                                          <ul class="meta">
+                                                              <li >Noha Alrasheed</li>
                                                           </ul>
                                                       </article>
                                                   </li>
@@ -278,11 +305,4 @@
 </div>
 
 </body>
-
-<script>
-function logOut() {
-    localStorage.removeItem('isLoggedIn');
-    window.location.href = "index.php";
-}
-</script>
 </html>

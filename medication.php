@@ -1,4 +1,67 @@
-<?php session_start(); ?>
+<?php 
+session_start();
+include('db.php');
+
+// Check if doctor is logged in
+if (!isset($_SESSION['isLoggedIn']) || $_SESSION['isLoggedIn'] !== true || $_SESSION['role'] !== 'doctor') {
+    header("Location: login.php");
+    exit();
+}
+
+// Check if patient_id is provided
+if (!isset($_GET['patient_id'])) {
+    header("Location: DoctorPage.php");
+    exit();
+}
+
+$patient_id = $_GET['patient_id'];
+$appointment_id = isset($_GET['appointment_id']) ? $_GET['appointment_id'] : null;
+
+// Get patient information
+$stmt = $conn->prepare("
+    SELECT id, firstName, lastName, Gender, TIMESTAMPDIFF(YEAR, DoB, CURDATE()) as age 
+    FROM patient 
+    WHERE id = ?
+");
+$stmt->bind_param("i", $patient_id);
+$stmt->execute();
+$result = $stmt->get_result();
+$patient = $result->fetch_assoc();
+
+if (!$patient) {
+    header("Location: DoctorPage.php");
+    exit();
+}
+
+// Process form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $medications = isset($_POST['medications']) ? $_POST['medications'] : [];
+    
+    // Update appointment status to Done if appointment_id is provided
+    if ($appointment_id) {
+        $stmt = $conn->prepare("UPDATE appointment SET status = 'Done' WHERE id = ?");
+        $stmt->bind_param("i", $appointment_id);
+        $stmt->execute();
+    }
+    
+    // Insert prescriptions
+    foreach ($medications as $medication_id) {
+        $stmt = $conn->prepare("INSERT INTO prescription (AppointmentID, MedicationID) VALUES (?, ?)");
+        $stmt->bind_param("ii", $appointment_id, $medication_id);
+        $stmt->execute();
+    }
+    
+    header("Location: DoctorPage.php");
+    exit();
+}
+
+// Get all medications
+$medications = [];
+$stmt = $conn->prepare("SELECT id, MedicationName FROM medication");
+$stmt->execute();
+$result = $stmt->get_result();
+$medications = $result->fetch_all(MYSQLI_ASSOC);
+?>
 
 <!DOCTYPE HTML>
 <html lang="en">
@@ -55,8 +118,8 @@
             border-radius: 5px;
             outline: none;
             cursor: pointer;
-            margin-right: 10px; /* Space between checkbox and label */
-            vertical-align: middle; /* Aligns checkbox vertically */
+            margin-right: 10px;
+            vertical-align: middle;
         }
         input[type="checkbox"]:checked,
         input[type="radio"]:checked {
@@ -73,8 +136,8 @@
         .radio-group label,
         .checkbox-group label {
             font-weight: normal;
-            display: flex; /* Change to flex for proper alignment */
-            align-items: center; /* Aligns checkbox and text vertically */
+            display: flex;
+            align-items: center;
             margin-bottom: 5px;
         }
         button {
@@ -122,28 +185,30 @@
                             <div class="form-container">
                                 <div class="form-box">
                                     <h2 style="color: #333;">Patient's Medications</h2>
-                                    <form>
+                                    <form method="POST" action="medication.php?patient_id=<?php echo $patient_id; ?><?php echo $appointment_id ? '&appointment_id='.$appointment_id : ''; ?>">
                                         <h3>Patient Information</h3>
                                         <label for="name">Patient's Name:</label>
-                                        <input type="text" id="name" name="name" placeholder="Enter your name" value="Leena naser">
+                                        <input type="text" id="name" name="name" placeholder="Enter your name" value="<?php echo htmlspecialchars($patient['firstName'] . ' ' . $patient['lastName']); ?>" readonly>
                                         
                                         <label for="age">Age:</label>
-                                        <input style="width: 20%;" type="number" id="age" name="age" value="40">
+                                        <input style="width: 20%;" type="number" id="age" name="age" value="<?php echo htmlspecialchars($patient['age']); ?>" readonly>
 
                                         <label>Gender:</label>
                                         <div class="radio-group">
-                                            <label><input type="radio" name="gender" value="male"> Male</label>
-                                            <label><input type="radio" name="gender" value="female" checked> Female</label>
+                                            <label><input type="radio" name="gender" value="male" <?php echo $patient['Gender'] == 'Male' ? 'checked' : ''; ?> disabled> Male</label>
+                                            <label><input type="radio" name="gender" value="female" <?php echo $patient['Gender'] == 'Female' ? 'checked' : ''; ?> disabled> Female</label>
                                         </div>
 
                                         <label>Medications:</label>
                                         <div class="checkbox-group">
-                                            <label><input type="checkbox" name="medications" value="botox" checked> Botox</label>
-                                            <label><input type="checkbox" name="medications" value="aha"> AHA</label>
-                                            <label><input type="checkbox" name="medications" value="corticosteroids"> Corticosteroids</label>
-                                            <label><input type="checkbox" name="medications" value="hyaluronic_acid"> Hyaluronic Acid</label>
+                                            <?php foreach ($medications as $medication): ?>
+                                            <label>
+                                                <input type="checkbox" name="medications[]" value="<?php echo $medication['id']; ?>">
+                                                <?php echo htmlspecialchars($medication['MedicationName']); ?>
+                                            </label>
+                                            <?php endforeach; ?>
                                         </div>
-                                        <a style="width: 100%;" href="DoctorPage.php" class="button">Submit</a>
+                                        <input type="submit" class="button" value="Submit">
                                     </form>
                                 </div>
                             </div>
