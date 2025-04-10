@@ -40,13 +40,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['doctorId'], $_POST['d
 }
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Appointment Booking</title>
-    <link rel="stylesheet" href="main.css">
+<title>Appointment Booking</title>
+    <title>Patient Dashboard</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+        <!-- Header -->
+        <header id="header">
+            <div class="logo container">
+                <div>
+                    <h1 style="color: rgba(255, 120, 185, 0.95);"><a href="index.php" id="logo">Glamour Beauty</a></h1><br>
+                    <p>Your Journey to Timeless Elegance</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Nav -->
+        <nav id="nav">
+            <ul>
+                <a href="index.php"><img src="images/logo1.png" alt="Logo"></a>
+                <li><a href="index.php">Home</a></li>
+                <li class="current"><a href="PatientPage.php">patient Page</a></li>
+               
+            </ul>
+            <?php if(isset($_SESSION['isLoggedIn']) && $_SESSION['isLoggedIn'] == true): ?>
+                        <a href="logout.php" class="button">Sign Out</a>
+                    <?php endif; ?>
+                        </nav>
 <body>
+        <!-- Main -->
+        <section id="main">
+            
+            <div class="container">
+                <div class="row">
+                    <div class="col-9 col-12-medium">
+                        <div class="content">
+                            <article class="box page-content">
+ 
     <h2>Book an Appointment</h2>
     <a href="PatientPage.php">← Back to Patient Page</a><br><br>
 

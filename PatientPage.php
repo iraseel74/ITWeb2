@@ -18,7 +18,7 @@ $patient = $result->fetch_assoc();
 
 // Get appointments
 $app_stmt = $conn->prepare("
-    SELECT a.id, a.date, a.time, a.status, d.firstName AS doctorFirstName, d.lastName AS doctorLastName, d.photo 
+    SELECT a.id, a.date, a.time, a.status, d.firstName AS doctorFirstName, d.lastName AS doctorLastName  
     FROM appointment a
     JOIN doctor d ON a.doctorId = d.id
     WHERE a.patientId = ?
@@ -33,9 +33,11 @@ $app_result = $app_stmt->get_result();
 <html>
 <head>
     <title>Patient Dashboard</title>
-    <link rel="stylesheet" href="main.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="main.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-
         <!-- Header -->
         <header id="header">
             <div class="logo container">
@@ -79,8 +81,10 @@ $app_result = $app_stmt->get_result();
         <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
 
+    <a style="color: rgba(255, 120, 185, 0.95);width: 100%;
+            padding: 10px;            border-radius: 15px;
+" href="appointmentbooking.php">Book an Appointment</a>
     <h2>Your Appointments</h2>
-    <a href="appointmentbooking.php">Book an Appointment</a>
     <br><br>
 
     <?php if ($app_result->num_rows > 0): ?>
